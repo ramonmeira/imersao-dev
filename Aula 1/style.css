@@ -12,6 +12,7 @@ body {
   text-align: center;
   padding: 20px;
   height: 100vh;
+  background-color: #0a2351;
 }
 
 .page-title {
@@ -26,6 +27,7 @@ body {
 
 .page-logo {
   width: 200px;
+  margin-bottom: 20px;
 }
 
 .alura-logo {
