@@ -19,7 +19,7 @@
       </p>
       <img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/logo-imersao-conversor-de-moedas.svg" class="page-logo" alt=""><br><br>
       
-      <div class="row">
+      <div class="row mb-3">
         <div class="col-3">
           <a href="https://www.vecteezy.com/vector-art/380562-coins-vector-icon">
             <img
@@ -32,9 +32,9 @@
         <div class="col-9 align-self-center">
           <div class="input-group mb-3 flex-nowrap">
             <select class="custom-select" id="coinFrom">
-              <option value = "dolar" selected>Dolar</option>
-              <option value = "euro">Euro</option>
-              <option value = "real">Real</option>
+              <option value = "dolar" selected>USD Dolar($)</option>
+              <option value = "euro">EUR Euro(€)</option>
+              <option value = "real">BLR Real(R$)</option>
             </select>
 
             <input
@@ -45,9 +45,9 @@
             />
 
             <select class="custom-select" id="coinTo">
-              <option value = "dolar" selected>Dolar</option>
-              <option value = "euro">Euro</option>
-              <option value = "real">Real</option>
+              <option value = "dolar" selected>USD Dolar($)</option>
+              <option value = "euro">EUR Euro(€)</option>
+              <option value = "real">BLR Real(R$)</option>
             </select>
 
             <input
@@ -60,6 +60,48 @@
           </div> 
         </div>
       </div> 
+
+      <div class="row mb-3">
+          <div class="col-3">
+            <a href="https://www.vecteezy.com/vector-art/380562-coins-vector-icon">
+              <img
+              src="space-rangers.svg"
+              class="conversion-icon"
+              alt=""
+              />
+            </a>
+          </div>
+          <div class="col-9 align-self-center">
+            <div class="input-group mb-3 flex-nowrap">
+              <select class="custom-select" id="distanceUnitFrom">
+                <option value = "km" selected>Quilômetro(km)</option>
+                <option value = "ly">Ano Luz(ly)</option>
+              </select>
+
+              <input
+                type="text"
+                id="distanceFrom"
+                name="distanceFrom"
+                placeholder="0"
+              />
+
+              <select class="custom-select" id="distanceUnitTo">
+                <option value = "km" selected>Quilômetro(km)</option>
+                <option value = "ly">Ano Luz(ly)</option>
+              </select>
+
+              <input
+                type="text"
+                id="distanceTo"
+                name="distanceTo"
+                placeholder="0"
+                disabled="true"
+              />
+            </div> 
+          </div>
+        </div> 
+      </div>
+
     </div>
 
     <a href="https://alura.com.br/" target="_blank">

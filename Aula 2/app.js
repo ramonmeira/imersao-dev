@@ -55,6 +55,47 @@ coinTo.addEventListener('input', function () {
 
 // 2 - Conversor de quilômetros para anos luz e verificar o tempo que demora para ir de uma estrela para outra.
 
+const distanceFrom = document.querySelector('#distanceFrom');
+const distanceTo = document.querySelector('#distanceTo');
+const distanceUnitFrom = document.querySelector('#distanceUnitFrom');
+const distanceUnitTo = document.querySelector('#distanceUnitTo');
+
+function updateDistance() {
+  var distanceRate = {
+    km: {
+      km: 1,
+      ly: 1 / 9461000000000,
+    },
+    ly: {
+      km: 9461000000000,
+      ly: 1,
+    },
+  };
+  console.log(distanceUnitFrom.value + ' ' + distanceUnitTo.value);
+  console.log(distanceRate);
+  console.log(distanceRate[distanceUnitFrom.value][distanceUnitTo.value]);
+  console.log(
+    (
+      distanceFrom.value *
+      distanceRate[distanceUnitFrom.value][distanceUnitTo.value]
+    ).toFixed(2)
+  );
+  distanceTo.value =
+    distanceFrom.value *
+    distanceRate[distanceUnitFrom.value][distanceUnitTo.value];
+  // .toFixed(2);
+}
+
+distanceFrom.addEventListener('input', function () {
+  updateDistance();
+});
+distanceUnitFrom.addEventListener('input', function () {
+  updateDistance();
+});
+distanceUnitTo.addEventListener('input', function () {
+  updateDistance();
+});
+
 // 3 - Conversor de temperaturas entre farenheit, kelvin e celcius.
 
 // 4 - Adicionar uma linha ao projeto desenvolvido para que apareça o valor em bitcoin.
