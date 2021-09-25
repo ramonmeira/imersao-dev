@@ -12,6 +12,14 @@ body {
   text-align: center;
   padding: 20px;
   height: 100vh;
+  background-color: #0a2351;
+}
+
+.container input {
+  text-align: right;
+}
+.container input:disabled {
+  color: white;
 }
 
 .page-title {
@@ -28,6 +36,10 @@ body {
   width: 200px;
 }
 
+.conversion-icon {
+  width: 150px;
+}
+
 .alura-logo {
   width: 40px;
   position: absolute;
@@ -36,7 +48,6 @@ body {
 }
 
 input {
-  margin: 12px;
   padding: 6px;
   border-radius: 5px;
 }
