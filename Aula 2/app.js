@@ -21,17 +21,26 @@ const coinTo = document.querySelector('#coinTo');
 
 function updateMoney() {
   var coinRate = {
+    bitcoin: {
+      bitcoin: 1,
+      dolar: 42894.64,
+      euro: 36661.49,
+      real: 230897.0,
+    },
     dolar: {
+      bitcoin: 0.000023,
       dolar: 1,
       euro: 0.82,
       real: 5.1,
     },
     euro: {
+      bitcoin: 0.000027,
       dolar: 1.22,
       euro: 1,
       real: 6.2,
     },
     real: {
+      bitcoin: 0.0000043,
       dolar: 0.2,
       euro: 0.16,
       real: 1,
