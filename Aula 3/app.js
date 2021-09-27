@@ -24,8 +24,21 @@ function Chutar() {
     restartGame();
   } else {
     if (attempt < maxNumberOfAttempts) {
-      elementoResultado.innerHTML =
-        'Errou (tentativa ' + attempt + ' de ' + maxNumberOfAttempts + ')';
+      if (guess > secretNumber) {
+        elementoResultado.innerHTML =
+          'Errou, número muito alto (tentativa ' +
+          attempt +
+          ' de ' +
+          maxNumberOfAttempts +
+          ')';
+      } else {
+        elementoResultado.innerHTML =
+          'Errou, número muito baixo (tentativa ' +
+          attempt +
+          ' de ' +
+          maxNumberOfAttempts +
+          ')';
+      }
     } else {
       elementoResultado.innerHTML =
         'Você perdeu, o número correto era ' + secretNumber;
