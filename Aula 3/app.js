@@ -55,3 +55,9 @@ function Chutar() {
 // 2 - Quando a pessoa errar, deixar na mensagem se o número chutado é maior ou menor que o número secreto.
 
 // 3 - Pesquisar e aprender a diferença entre == e ===
+// Unlike the equality operator, the strict equality operator always considers operands of different types to be different.
+// console.log(1 === 1); // expected output: true
+// console.log('hello' === 'hello'); // expected output: true
+// console.log('1' ===  1); // expected output: false
+// console.log(0 === false); // expected output: false
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Strict_equality
