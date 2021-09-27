@@ -98,4 +98,74 @@ distanceUnitTo.addEventListener('input', function () {
 
 // 3 - Conversor de temperaturas entre farenheit, kelvin e celcius.
 
+const temperatureFrom = document.querySelector('#temperatureFrom');
+const temperatureTo = document.querySelector('#temperatureTo');
+const temperatureUnitFrom = document.querySelector('#temperatureUnitFrom');
+const temperatureUnitTo = document.querySelector('#temperatureUnitTo');
+
+function sameUnit(temperatureFrom) {
+  return temperatureFrom;
+}
+
+function updateTemperature() {
+  var teste = {
+    celcius: {
+      celcius: function (temperatureFrom) {
+        return temperatureFrom * 1.8 + 32;
+      },
+    },
+  };
+  teste['celcius']['celcius'](temperatureFrom.value);
+
+  var temperatureRate = {
+    celcius: {
+      celcius: function (temperatureFrom) {
+        return sameUnit(temperatureFrom);
+      },
+      farenheit: function celciusToFarenheit(temperatureFrom) {
+        return temperatureFrom * 1.8 + 32;
+      },
+      kelvin: function celciusToKelvin(temperatureFrom) {
+        return temperatureFrom + 273.15;
+      },
+    },
+    farenheit: {
+      celcius: function farenheitToCelcius(temperatureFrom) {
+        return (temperatureFrom - 32) / 1.8;
+      },
+      farenheit: function (temperatureFrom) {
+        return sameUnit(temperatureFrom);
+      },
+      kelvin: function farenheitToKelvin(temperatureFrom) {
+        return (temperatureFrom - 32) / 1.8 + 273.15;
+      },
+    },
+    kelvin: {
+      celcius: function kelvinTocelcius(temperatureFrom) {
+        return temperatureFrom - 273.15;
+      },
+      farenheit: function KelvinToFarenheit(temperatureFrom) {
+        return temperatureFrom * 1.8 - 459.67;
+      },
+      kelvin: function (temperatureFrom) {
+        return sameUnit(temperatureFrom);
+      },
+    },
+  };
+  console.log();
+  temperatureTo.value = temperatureRate[temperatureUnitFrom.value]
+    [temperatureUnitTo.value](parseFloat(temperatureFrom.value))
+    .toFixed(2);
+}
+
+temperatureFrom.addEventListener('input', function () {
+  updateTemperature();
+});
+temperatureUnitFrom.addEventListener('input', function () {
+  updateTemperature();
+});
+temperatureUnitTo.addEventListener('input', function () {
+  updateTemperature();
+});
+
 // 4 - Adicionar uma linha ao projeto desenvolvido para que apareça o valor em bitcoin.
