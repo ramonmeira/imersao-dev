@@ -1,15 +1,39 @@
-var numeroSecreto = parseInt(Math.random() * 11);
+var secretNumber = parseInt(Math.random() * 11);
+var maxNumberOfAttempts = 3;
+var attempt = 0;
+
+function restartGame() {
+  secretNumber = parseInt(Math.random() * 11);
+  attempt = 0;
+}
 
 function Chutar() {
   var elementoResultado = document.getElementById('resultado');
-  var chute = parseInt(document.getElementById('valor').value);
-  console.log(chute);
-  if (chute == numeroSecreto) {
-    elementoResultado.innerHTML = 'Você acertou';
-  } else if (chute > 10 || chute < 0) {
+  var guess = parseInt(document.getElementById('valor').value);
+  console.log(guess);
+
+  if (guess > 10 || guess < 0) {
     elementoResultado.innerHTML = 'Você deve digitar um número de 0 a 10';
+    return;
+  }
+
+  attempt++;
+
+  if (guess == secretNumber) {
+    elementoResultado.innerHTML = 'Você acertou';
+    restartGame();
   } else {
-    elementoResultado.innerHTML = 'Errou';
+    if (attempt < maxNumberOfAttempts) {
+      elementoResultado.innerHTML =
+        'Errou (tentativa ' + attempt + ' de ' + maxNumberOfAttempts + ')';
+    } else {
+      elementoResultado.innerHTML =
+        'Você perdeu, o número correto era ' + secretNumber;
+    }
+  }
+
+  if (attempt == maxNumberOfAttempts) {
+    restartGame();
   }
 }
 
