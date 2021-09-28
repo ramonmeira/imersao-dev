@@ -12,24 +12,61 @@
 
   <body>
     <div class="container">
-      <h1 class="page-title">Aluraflix</h1>
+      <div class="console-container">
+        <h1 class="page-title" id="text"></h1>
+      </div>
+
       <img
         src="https://www.alura.com.br/assets/img/imersoes/dev-2021/logo-imersao-aluraflix.svg"
         class="page-logo"
         alt=""
       />
-      <p class="page-subtitle">Qual seu filme favorito?</p>
-      <div class="form-wrapper">
-        <input
-          type="text"
-          id="filme"
-          name="filme"
-          placeholder="Insira endereço de imagem"
-        />
-        <button onClick="adicionarFilme()">Adicionar Filme</button>
+
+      <div class="page-subtitle mb-3">
+        Sua lista de tabletop RPG ao estilo da Alura
       </div>
+
+      <div class="form-wrapper" id="form">
+        <div class="row mb-3">
+          <div class="col">
+            <div class="input-group justify-content-center">
+              <input
+                type="text"
+                id="newitemName"
+                name="newitemName"
+                placeholder="Nome"
+                class="form-control"
+              />
+              <input
+                type="text"
+                id="newItemUrlSite"
+                name="newItemUrlSite"
+                placeholder="URL do site"
+                class="form-control"
+              />
+              <input
+                type="text"
+                id="newItemURLImage"
+                name="newItemURLImage"
+                placeholder="URL da imagem"
+                class="form-control"
+              />
+              <button
+                class="btn btn-primary"
+                onclick="addElement()"
+                type="button"
+              >
+                Adicionar
+              </button>
+            </div>
+            <div id="error">Elemento já cadastrado</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="list"></div>
     </div>
-    <div id="listaFilmes"></div>
+
     <a href="https://alura.com.br/" target="_blank">
       <img
         src="https://www.alura.com.br/assets/img/home/alura-logo.svg"
