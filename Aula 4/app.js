@@ -18,6 +18,12 @@ var itemsList = [
       'https://geekandsundry.com/wp-content/uploads/2016/04/Dungeon-World-199x300.jpg',
   },
   {
+    name: 'Dungeon World',
+    url: 'https://dungeon-world.com/',
+    image:
+      'https://geekandsundry.com/wp-content/uploads/2016/04/Dungeon-World-199x300.jpg',
+  },
+  {
     name: 'Numenera',
     url: 'http://numenera.com/',
     image:
@@ -44,9 +50,14 @@ var itemsList = [
 
 var elementList = document.getElementById('list');
 let row;
+var itemsRepeated = 0;
 
 for (var i = 0; i < itemsList.length; i++) {
-  if (i % 4 == 0) {
+  if (isRepeated(itemsList[i].name)) {
+    itemsRepeated++;
+    continue;
+  }
+  if ((i - itemsRepeated) % 4 == 0) {
     row = document.createElement('div');
     row.className = 'row';
     elementList.appendChild(row);
@@ -136,5 +147,13 @@ function consoleText(words, id, colors) {
 // 2 - Tentar implementar outras versões da estrutura de repetição que fizemos com for, como por exemplo com foreach ou while
 
 // 3 - Criar uma condição para não adicionar filmes repetidos, caso eles já tenham sido adicionados anteriormente
+
+function isRepeated(name) {
+  var list = document.getElementsByClassName('col');
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].children[0].innerText == name) return true;
+  }
+  return false;
+}
 
 // 4 - Criar um campo e botão para adicionar a imagem pela tela, e não direto no código
