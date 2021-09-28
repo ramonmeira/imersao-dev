@@ -149,6 +149,20 @@ function addNewElement(name, urlSite, urlImage) {
 
 // 1 - Criar um botão para remover um filme na tela
 
+function removeElement() {
+  var elementPosition = itemsList.findIndex(
+    (i) => i.name === newItemName.value
+  );
+
+  if (elementPosition > -1) {
+    itemsList.splice(elementPosition, 1);
+  }
+
+  newItemName.value = '';
+
+  refreshList();
+}
+
 // 2 - Além de colocar a imagem do filme, também adicionar o nome por meio de outro input
 //Feito na Aula 4
 
@@ -161,7 +175,6 @@ function refreshList() {
 
   for (var i = 0; i < itemsList.length; i++) {
     addNewElement(itemsList[i].name, itemsList[i].url, itemsList[i].image);
-    console.log(i);
   }
 }
 
@@ -176,7 +189,7 @@ function isRepeated(name) {
 function addElement() {
   var error = document.getElementById('error');
   var urlImage = newItemURLImage.value;
-  if (urlImage.endsWith('.jpg')) {
+  if (urlImage.endsWith('.jpg') || urlImage.endsWith('.png')) {
     if (isRepeated(newItemName.value)) {
       error.innerText = 'RPG já cadastrado';
       error.style.visibility = 'visible';
