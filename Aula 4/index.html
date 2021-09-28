@@ -26,6 +26,44 @@
         Sua lista de tabletop RPG ao estilo da Alura
       </div>
 
+      <div class="form" id="form">
+        <div class="row">
+          <div class="col mb-3">
+            <div class="input-group justify-content-center">
+              <input
+                type="text"
+                id="newitemName"
+                name="newitemName"
+                placeholder="Nome"
+                class="form-control"
+              />
+              <input
+                type="text"
+                id="newItemUrlSite"
+                name="newItemUrlSite"
+                placeholder="URL do site"
+                class="form-control"
+              />
+              <input
+                type="text"
+                id="newItemURLImage"
+                name="newItemURLImage"
+                placeholder="URL da imagem"
+                class="form-control"
+              />
+              <button
+                class="btn btn-primary"
+                onclick="addElement()"
+                type="button"
+              >
+                Adicionar
+              </button>
+            </div>
+            <div id="error">Elemento já cadastrado</div>
+          </div>
+        </div>
+      </div>
+
       <div id="list"></div>
     </div>
 

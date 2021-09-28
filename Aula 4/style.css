@@ -53,3 +53,10 @@ img {
   top: -0.14em;
   left: 10px;
 }
+
+#error {
+  color: red;
+  background-color: white;
+  border: solid red 1px;
+  visibility: hidden;
+}

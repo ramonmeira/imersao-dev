@@ -18,12 +18,6 @@ var itemsList = [
       'https://geekandsundry.com/wp-content/uploads/2016/04/Dungeon-World-199x300.jpg',
   },
   {
-    name: 'Dungeon World',
-    url: 'https://dungeon-world.com/',
-    image:
-      'https://geekandsundry.com/wp-content/uploads/2016/04/Dungeon-World-199x300.jpg',
-  },
-  {
     name: 'Numenera',
     url: 'http://numenera.com/',
     image:
@@ -48,39 +42,10 @@ var itemsList = [
   },
 ];
 
-var elementList = document.getElementById('list');
-let row;
-var itemsRepeated = 0;
+const elementList = document.getElementById('list');
 
 for (var i = 0; i < itemsList.length; i++) {
-  if (isRepeated(itemsList[i].name)) {
-    itemsRepeated++;
-    continue;
-  }
-  if ((i - itemsRepeated) % 4 == 0) {
-    row = document.createElement('div');
-    row.className = 'row';
-    elementList.appendChild(row);
-  }
-
-  let col = document.createElement('div');
-  col.className = 'col mb-3';
-  row.appendChild(col);
-
-  let h2 = document.createElement('p');
-  h2.innerText = itemsList[i].name;
-  col.appendChild(h2);
-
-  let a = document.createElement('a');
-  a.href = itemsList[i].url;
-  a.target = '_blank';
-  col.appendChild(a);
-
-  let img = document.createElement('img');
-  img.src = itemsList[i].image;
-  a.appendChild(img);
-
-  row.appendChild(col);
+  addNewElement(itemsList[i].name, itemsList[i].url, itemsList[i].image);
 }
 
 // Desafios
@@ -157,3 +122,61 @@ function isRepeated(name) {
 }
 
 // 4 - Criar um campo e botão para adicionar a imagem pela tela, e não direto no código
+const newItemName = document.getElementById('newitemName');
+const newItemUrlSite = document.getElementById('newItemUrlSite');
+const newItemURLImage = document.getElementById('newItemURLImage');
+
+newItemName.addEventListener('focus', function () {
+  document.getElementById('error').style.visibility = 'hidden';
+});
+newItemUrlSite.addEventListener('focus', function () {
+  document.getElementById('error').style.visibility = 'hidden';
+});
+newItemURLImage.addEventListener('focus', function () {
+  document.getElementById('error').style.visibility = 'hidden';
+});
+
+function addElement() {
+  addNewElement(newItemName.value, newItemUrlSite.value, newItemURLImage.value);
+}
+
+function addNewElement(name, urlSite, urlImage) {
+  if (isRepeated(name)) {
+    console.log('Item repetido'); //TODO
+    document.getElementById('error').style.visibility = 'visible';
+    return;
+  }
+
+  var rows = document.getElementById('list').getElementsByClassName('row');
+  var numberOFRows = rows.length;
+
+  if (numberOFRows > 0) {
+    var row = rows[rows.length - 1];
+    var cols = row.getElementsByClassName('col');
+  }
+
+  if (numberOFRows == 0 || cols.length == 4) {
+    row = document.createElement('div');
+    row.className = 'row';
+    elementList.appendChild(row);
+  }
+
+  let col = document.createElement('div');
+  col.className = 'col mb-3';
+  row.appendChild(col);
+
+  let nameElement = document.createElement('p');
+  nameElement.innerText = name;
+  col.appendChild(nameElement);
+
+  let linkURLSite = document.createElement('a');
+  linkURLSite.href = urlSite;
+  linkURLSite.target = '_blank';
+  col.appendChild(linkURLSite);
+
+  let LinkImg = document.createElement('img');
+  LinkImg.src = urlImage;
+  linkURLSite.appendChild(LinkImg);
+
+  row.appendChild(col);
+}
