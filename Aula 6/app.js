@@ -1,25 +1,55 @@
-//          chave.  valor.
-var rafa = { nome: 'Rafa', vitorias: 0, empates: 0, derrotas: 0, pontos: 0 };
-var paulo = { nome: 'Paulo', vitorias: 0, empates: 0, derrotas: 0, pontos: 0 };
-var gui = { nome: 'Gui', vitorias: 0, empates: 0, derrotas: 0, pontos: 0 };
+var drawAdjusted = true;
+var victoryAndDefeateAdjusted = true;
+
+var jogadores = [
+  {
+    nome: 'Rafa',
+    vitorias: 0,
+    empates: 0,
+    derrotas: 0,
+    pontos: 0,
+    image:
+      'https://www.freepngimg.com/thumb/emoji/47427-9-smiley-image-free-download-png-hq.png',
+  },
+  {
+    nome: 'Paulo',
+    vitorias: 0,
+    empates: 0,
+    derrotas: 0,
+    pontos: 0,
+    image:
+      'https://www.freepngimg.com/download/emoji/77530-emoticon-thinking-thought-world-whatsapp-day-emoji.png',
+  },
+  {
+    nome: 'Gui',
+    vitorias: 0,
+    empates: 0,
+    derrotas: 0,
+    pontos: 0,
+    image:
+      'https://www.jing.fm/clipimg/full/63-638369_emoji-emoticon-ok-gesture-smiley-png-image-with.png',
+  },
+  {
+    nome: 'Ramon',
+    vitorias: 0,
+    empates: 0,
+    derrotas: 0,
+    pontos: 0,
+    image: 'https://www.vhv.rs/file/max/29/296256_smiling-emoji-png.png',
+  },
+];
 
 function calculaPontos(jogador) {
   var pontos = jogador.vitorias * 3 + jogador.empates;
   return pontos;
 }
 
-rafa.pontos = calculaPontos(rafa);
-paulo.pontos = calculaPontos(paulo);
-gui.pontos = calculaPontos(gui);
-
-var jogadores = [rafa, paulo, gui];
-var drawAdjusted = true;
-var victoryAndDefeateAdjusted = true;
-
 function exibeJogadoresNaTela(jogadores) {
   var elemento = '';
   for (var i = 0; i < jogadores.length; i++) {
-    elemento += '<tr><td>' + jogadores[i].nome + '</td>';
+    elemento += '<tr>';
+    elemento += '<td><img src="' + jogadores[i].image + '"></td>';
+    elemento += '<td>' + jogadores[i].nome + '</td>';
     elemento += '<td>' + jogadores[i].vitorias + '</td>';
     elemento += '<td>' + jogadores[i].empates + '</td>';
     elemento += '<td>' + jogadores[i].derrotas + '</td>';
