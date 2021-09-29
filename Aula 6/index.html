@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Imersão Dev - Aula 06</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <h1>Tabela de classificação</h1>
+
+    <table style="width: 100%">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Vitórias</th>
+          <th>Empates</th>
+          <th>Derrotas</th>
+          <th>Pontos</th>
+          <th colspan="3">Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaJogadores">
+        <tr>
+          <td>Paulo</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button onClick="adicionarVitoria()">Vitória</button></td>
+          <td><button onClick="adicionarEmpate()">Empate</button></td>
+          <td><button onClick="adicionarDerrota()">Derrota</button></td>
+        </tr>
+        <tr>
+          <td>Rafa</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><button onClick="adicionarVitoria()">Vitória</button></td>
+          <td><button onClick="adicionarEmpate()">Empate</button></td>
+          <td><button onClick="adicionarDerrota()">Derrota</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <script src="app.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
