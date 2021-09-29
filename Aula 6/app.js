@@ -48,18 +48,24 @@ function exibeJogadoresNaTela(jogadores) {
   var elemento = '';
   for (var i = 0; i < jogadores.length; i++) {
     elemento += '<tr>';
-    elemento += '<td><img src="' + jogadores[i].image + '"></td>';
-    elemento += '<td>' + jogadores[i].nome + '</td>';
-    elemento += '<td>' + jogadores[i].vitorias + '</td>';
-    elemento += '<td>' + jogadores[i].empates + '</td>';
-    elemento += '<td>' + jogadores[i].derrotas + '</td>';
-    elemento += '<td>' + jogadores[i].pontos + '</td>';
+    elemento += '<td scope="row"> <img src="' + jogadores[i].image + '"></td>';
+    elemento += '<td scope="row">' + jogadores[i].nome + '</td>';
+    elemento += '<td scope="row">' + jogadores[i].vitorias + '</td>';
+    elemento += '<td scope="row">' + jogadores[i].empates + '</td>';
+    elemento += '<td scope="row">' + jogadores[i].derrotas + '</td>';
+    elemento += '<td scope="row">' + jogadores[i].pontos + '</td>';
     elemento +=
-      "<td><button onClick='adicionarVitoria(" + i + ")'>Vitória</button></td>";
+      "<td scope='row'><button class='btn btn-primary' onClick='adicionarVitoria(" +
+      i +
+      ")'>Vitória</button></td>";
     elemento +=
-      "<td><button onClick='adicionarEmpate(" + i + ")'>Empate</button></td>";
+      "<td scope='row'><button class='btn btn-primary' onClick='adicionarEmpate(" +
+      i +
+      ")'>Empate</button></td>";
     elemento +=
-      "<td><button onClick='adicionarDerrota(" + i + ")'>Derrota</button></td>";
+      "<td scope='row'><button class='btn btn-primary' onClick='adicionarDerrota(" +
+      i +
+      ")'>Derrota</button></td>";
     elemento += '</tr>';
   }
 
@@ -170,6 +176,17 @@ function isVictoryAndDefeatValid() {
 // 3 - Adicionar a imagem de cada jogador
 
 // 4 - Criar um botão para zerar todos os pontos
+
+function cleanScoreboard() {
+  for (let i = 0; i < jogadores.length; i++) {
+    jogadores[i].vitorias = 0;
+    jogadores[i].empates = 0;
+    jogadores[i].derrotas = 0;
+    jogadores[i].pontos = calculaPontos(jogadores[i]);
+  }
+
+  exibeJogadoresNaTela(jogadores);
+}
 
 // 5 - Criar um botão e inputs (campos de texto) para adicionar novos jogadores, com seus respectivos dados
 

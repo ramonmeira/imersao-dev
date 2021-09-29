@@ -39,22 +39,15 @@ body {
   right: 10px;
 }
 
-table {
-  border: 2px solid white;
-  border-collapse: collapse;
-}
-
 h1 {
   color: white;
 }
 
-th,
-tr,
-td {
-  border: solid 1px white;
-  color: white;
+table img {
+  max-width: 40px;
 }
 
-table img {
-  max-width: 50px;
+.optionButtons {
+  float: right;
+  margin-right: 0.25rem;
 }
