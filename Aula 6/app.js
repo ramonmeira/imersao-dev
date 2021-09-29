@@ -1,7 +1,7 @@
 //          chave.  valor.
-var rafa = { nome: 'Rafa', vitorias: 2, empates: 1, derrotas: 1, pontos: 0 };
-var paulo = { nome: 'Paulo', vitorias: 1, empates: 1, derrotas: 2, pontos: 0 };
-var gui = { nome: 'Gui', vitorias: 1, empates: 1, derrotas: 2, pontos: 0 };
+var rafa = { nome: 'Rafa', vitorias: 0, empates: 0, derrotas: 0, pontos: 0 };
+var paulo = { nome: 'Paulo', vitorias: 0, empates: 0, derrotas: 0, pontos: 0 };
+var gui = { nome: 'Gui', vitorias: 0, empates: 0, derrotas: 0, pontos: 0 };
 
 function calculaPontos(jogador) {
   var pontos = jogador.vitorias * 3 + jogador.empates;
@@ -13,6 +13,7 @@ paulo.pontos = calculaPontos(paulo);
 gui.pontos = calculaPontos(gui);
 
 var jogadores = [rafa, paulo, gui];
+var drawAdjusted = true;
 
 function exibeJogadoresNaTela(jogadores) {
   var elemento = '';
@@ -49,6 +50,19 @@ function adicionarEmpate(i) {
   jogador.empates++;
   jogador.pontos = calculaPontos(jogador);
   exibeJogadoresNaTela(jogadores);
+
+  // Block buttons when the columns of draws need to be adjusted
+  drawAdjusted = !drawAdjusted;
+  var registers = document
+    .getElementById('tabelaJogadores')
+    .getElementsByTagName('button');
+  if (!drawAdjusted) {
+    for (let j = 0; j < registers.length; j++) {
+      if (j % 3 != 1 || j == i * 3 + 1) {
+        registers[j].disabled = true;
+      }
+    }
+  }
 }
 
 function adicionarDerrota(i) {
