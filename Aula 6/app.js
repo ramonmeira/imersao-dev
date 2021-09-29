@@ -190,4 +190,17 @@ function cleanScoreboard() {
 
 // 5 - Criar um botão e inputs (campos de texto) para adicionar novos jogadores, com seus respectivos dados
 
+function addPlayer() {
+  var newPlayer = {
+    nome: document.getElementById('playerName').value,
+    vitorias: 0,
+    empates: 0,
+    derrotas: 0,
+    pontos: 0,
+    image: document.getElementById('playerImage').value,
+  };
+  jogadores.push(newPlayer);
+  exibeJogadoresNaTela(jogadores);
+}
+
 // 6 - Utilizar seu jogo preferido para se basear na pontuação da sua tabela de classificação
