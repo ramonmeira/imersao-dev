@@ -14,6 +14,7 @@ gui.pontos = calculaPontos(gui);
 
 var jogadores = [rafa, paulo, gui];
 var drawAdjusted = true;
+var victoryAndDefeateAdjusted = true;
 
 function exibeJogadoresNaTela(jogadores) {
   var elemento = '';
@@ -34,6 +35,8 @@ function exibeJogadoresNaTela(jogadores) {
 
   var tabelaJogadores = document.getElementById('tabelaJogadores');
   tabelaJogadores.innerHTML = elemento;
+  //   console.log('isDrawsValid() => ' + isDrawsValid());
+  //   console.log('isVictoryAndDefeatValid() => ' + isVictoryAndDefeatValid());
 }
 
 exibeJogadoresNaTela(jogadores);
@@ -43,6 +46,19 @@ function adicionarVitoria(i) {
   jogador.vitorias++;
   jogador.pontos = calculaPontos(jogador);
   exibeJogadoresNaTela(jogadores);
+
+  // Block buttons when the columns of defeat need to be adjusted
+  victoryAndDefeateAdjusted = !victoryAndDefeateAdjusted;
+  var registers = document
+    .getElementById('tabelaJogadores')
+    .getElementsByTagName('button');
+  if (!victoryAndDefeateAdjusted) {
+    for (let j = 0; j < registers.length; j++) {
+      if (j % 3 != 2 || j == i * 3 + 2) {
+        registers[j].disabled = true;
+      }
+    }
+  }
 }
 
 function adicionarEmpate(i) {
@@ -69,11 +85,57 @@ function adicionarDerrota(i) {
   var jogador = jogadores[i];
   jogador.derrotas++;
   exibeJogadoresNaTela(jogadores);
+
+  // Block buttons when the columns of victory need to be adjusted
+  victoryAndDefeateAdjusted = !victoryAndDefeateAdjusted;
+  var registers = document
+    .getElementById('tabelaJogadores')
+    .getElementsByTagName('button');
+  if (!victoryAndDefeateAdjusted) {
+    for (let j = 0; j < registers.length; j++) {
+      if (j % 3 != 0 || j == i * 3) {
+        registers[j].disabled = true;
+      }
+    }
+  }
 }
 
 // 1 - Fazer a lógica de quando houver um empate, obrigatóriamente deveria já ajustar como empate para os demais jogadores
 
 // 2 - Validar se todos os pontos estão fazendo sentido, tanto o número de empates, quanto derrotas e vitórias com os demais jogadores (impossível haver mais vitórias que derrotas, por exemplo)
+
+function isDrawsValid() {
+  var totalOfDraws = 0;
+  var maxDraws = 0;
+
+  for (let i = 0; i < jogadores.length; i++) {
+    totalOfDraws += jogadores[i].empates;
+    maxDraws =
+      maxDraws > jogadores[i].empates ? maxDraws : jogadores[i].empates;
+  }
+
+  if (totalOfDraws % 2 == 1 || maxDraws > totalOfDraws / 2) {
+    return false;
+  }
+
+  return true;
+}
+
+function isVictoryAndDefeatValid() {
+  var totalOfVictorys = 0;
+  var totalOfDeafeats = 0;
+
+  for (let i = 0; i < jogadores.length; i++) {
+    totalOfVictorys += jogadores[i].vitorias;
+    totalOfDeafeats += jogadores[i].derrotas;
+  }
+
+  if (totalOfVictorys != totalOfDeafeats) {
+    return false;
+  }
+
+  return true;
+}
 
 // 3 - Adicionar a imagem de cada jogador
 
