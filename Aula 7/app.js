@@ -50,12 +50,15 @@ function exibirOpcoes() {
   var opcoes = document.getElementById('opcoes');
   var opcoesTexto = '';
 
+  var first = true;
   for (var atributo in cartaJogador.atributos) {
     opcoesTexto +=
-      "<input type='radio' name='atributo' value='" +
-      atributo +
-      "'>" +
-      atributo;
+      "<input type='radio' name='atributo' value='" + atributo + "'";
+    if (first) {
+      opcoesTexto += ' checked';
+      first = false;
+    }
+    opcoesTexto += '>' + atributo;
   }
   opcoes.innerHTML = opcoesTexto;
 }
