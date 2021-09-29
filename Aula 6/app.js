@@ -1,206 +1,233 @@
 var drawAdjusted = true;
 var victoryAndDefeateAdjusted = true;
 
-var jogadores = [
+var players = [
   {
-    nome: 'Rafa',
-    vitorias: 0,
-    empates: 0,
-    derrotas: 0,
-    pontos: 0,
-    image:
-      'https://www.freepngimg.com/thumb/emoji/47427-9-smiley-image-free-download-png-hq.png',
+    name: 'Bianca',
+    fruit: 15,
+    activity: 15,
+    points: 30,
+    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_2118-64.png',
   },
   {
-    nome: 'Paulo',
-    vitorias: 0,
-    empates: 0,
-    derrotas: 0,
-    pontos: 0,
-    image:
-      'https://www.freepngimg.com/download/emoji/77530-emoticon-thinking-thought-world-whatsapp-day-emoji.png',
+    name: 'Franciele',
+    fruit: 14,
+    activity: 13,
+    points: 27,
+    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_900-64.png',
   },
   {
-    nome: 'Gui',
-    vitorias: 0,
-    empates: 0,
-    derrotas: 0,
-    pontos: 0,
-    image:
-      'https://www.jing.fm/clipimg/full/63-638369_emoji-emoticon-ok-gesture-smiley-png-image-with.png',
+    name: 'H&#233;lio',
+    fruit: 12,
+    activity: 15,
+    points: 27,
+    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_2471-64.png',
   },
   {
-    nome: 'Ramon',
-    vitorias: 0,
-    empates: 0,
-    derrotas: 0,
-    pontos: 0,
-    image: 'https://www.vhv.rs/file/max/29/296256_smiling-emoji-png.png',
+    name: 'Isabel',
+    fruit: 14,
+    activity: 15,
+    points: 29,
+    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_1244-64.png',
+  },
+  {
+    name: 'Ramon',
+    fruit: 15,
+    activity: 13,
+    points: 28,
+    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_1072-64.png',
+  },
+  {
+    name: 'Suiane',
+    fruit: 13,
+    activity: 13,
+    points: 26,
+    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_143-64.png',
+  },
+  {
+    name: 'Victor Bruno',
+    fruit: 10,
+    activity: 11,
+    points: 21,
+    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_1146-64.png',
   },
 ];
 
-function calculaPontos(jogador) {
-  var pontos = jogador.vitorias * 3 + jogador.empates;
-  return pontos;
+function calculatePoints(player) {
+  var points = player.fruit + player.activity;
+  return points;
 }
 
-function exibeJogadoresNaTela(jogadores) {
-  var elemento = '';
-  for (var i = 0; i < jogadores.length; i++) {
-    elemento += '<tr>';
-    elemento += '<td scope="row"> <img src="' + jogadores[i].image + '"></td>';
-    elemento += '<td scope="row">' + jogadores[i].nome + '</td>';
-    elemento += '<td scope="row">' + jogadores[i].vitorias + '</td>';
-    elemento += '<td scope="row">' + jogadores[i].empates + '</td>';
-    elemento += '<td scope="row">' + jogadores[i].derrotas + '</td>';
-    elemento += '<td scope="row">' + jogadores[i].pontos + '</td>';
-    elemento +=
-      "<td scope='row'><button class='btn btn-primary' onClick='adicionarVitoria(" +
-      i +
-      ")'>Vitória</button></td>";
-    elemento +=
-      "<td scope='row'><button class='btn btn-primary' onClick='adicionarEmpate(" +
-      i +
-      ")'>Empate</button></td>";
-    elemento +=
-      "<td scope='row'><button class='btn btn-primary' onClick='adicionarDerrota(" +
-      i +
-      ")'>Derrota</button></td>";
-    elemento += '</tr>';
-  }
-
-  var tabelaJogadores = document.getElementById('tabelaJogadores');
-  tabelaJogadores.innerHTML = elemento;
-  //   console.log('isDrawsValid() => ' + isDrawsValid());
-  //   console.log('isVictoryAndDefeatValid() => ' + isVictoryAndDefeatValid());
-}
-
-exibeJogadoresNaTela(jogadores);
-
-function adicionarVitoria(i) {
-  var jogador = jogadores[i];
-  jogador.vitorias++;
-  jogador.pontos = calculaPontos(jogador);
-  exibeJogadoresNaTela(jogadores);
-
-  // Block buttons when the columns of defeat need to be adjusted
-  victoryAndDefeateAdjusted = !victoryAndDefeateAdjusted;
-  var registers = document
-    .getElementById('tabelaJogadores')
-    .getElementsByTagName('button');
-  if (!victoryAndDefeateAdjusted) {
-    for (let j = 0; j < registers.length; j++) {
-      if (j % 3 != 2 || j == i * 3 + 2) {
-        registers[j].disabled = true;
+function refreshBoard(players) {
+  var element = '';
+  for (var i = 0; i < players.length; i++) {
+    element += '<tr>';
+    element +=
+      '<td scope="row"> <img class="iconPlayer" src="' +
+      players[i].image +
+      '"></td>';
+    element += '<td scope="row">' + players[i].name + '</td>';
+    element += '<td scope="row">';
+    var tokens = 0;
+    for (let j = 1; j <= players[i].fruit / 5; j++) {
+      element += '<img src="img/legend/apple-5.png">';
+      tokens++;
+      if (tokens == 5) {
+        tokens = 0;
+        element += ' <br />';
       }
     }
-  }
-}
-
-function adicionarEmpate(i) {
-  var jogador = jogadores[i];
-  jogador.empates++;
-  jogador.pontos = calculaPontos(jogador);
-  exibeJogadoresNaTela(jogadores);
-
-  // Block buttons when the columns of draws need to be adjusted
-  drawAdjusted = !drawAdjusted;
-  var registers = document
-    .getElementById('tabelaJogadores')
-    .getElementsByTagName('button');
-  if (!drawAdjusted) {
-    for (let j = 0; j < registers.length; j++) {
-      if (j % 3 != 1 || j == i * 3 + 1) {
-        registers[j].disabled = true;
+    for (let j = 0; j < players[i].fruit % 5; j++) {
+      element += '<img src="img/legend/apple.png">';
+      tokens++;
+      if (tokens == 5) {
+        tokens = 0;
+        element += ' <br />';
       }
     }
-  }
-}
-
-function adicionarDerrota(i) {
-  var jogador = jogadores[i];
-  jogador.derrotas++;
-  exibeJogadoresNaTela(jogadores);
-
-  // Block buttons when the columns of victory need to be adjusted
-  victoryAndDefeateAdjusted = !victoryAndDefeateAdjusted;
-  var registers = document
-    .getElementById('tabelaJogadores')
-    .getElementsByTagName('button');
-  if (!victoryAndDefeateAdjusted) {
-    for (let j = 0; j < registers.length; j++) {
-      if (j % 3 != 0 || j == i * 3) {
-        registers[j].disabled = true;
+    element += '</td>';
+    element += '<td scope="row">';
+    tokens = 0;
+    for (let j = 1; j <= players[i].activity / 25; j++) {
+      element += '<img src="img/legend/medal-25.png">';
+      tokens++;
+      if (tokens == 5) {
+        tokens = 0;
+        element += ' <br />';
       }
     }
+    for (let j = 1; j <= (players[i].activity % 25) / 5; j++) {
+      element += '<img src="img/legend/medal-5.png">';
+      tokens++;
+      if (tokens == 5) {
+        tokens = 0;
+        element += ' <br />';
+      }
+    }
+    for (let j = 0; j < players[i].activity % 5; j++) {
+      element += '<img src="img/legend/medal-1.png">';
+      tokens++;
+      if (tokens == 5) {
+        tokens = 0;
+        element += ' <br />';
+      }
+    }
+    element += '</td>';
+    element += '<td scope="row">' + players[i].points + '</td>';
+    element +=
+      "<td scope='row'><button class='btn btn-primary' onClick='addFruit(" +
+      i +
+      ")'><img src='img/legend/apple.png'></button></td>";
+    element +=
+      "<td scope='row'><button class='btn btn-primary' onClick='addActivity(" +
+      i +
+      ")'><img src='img/legend/medal-1.png'></button></td>";
+    element += '</tr>';
   }
+
+  document.getElementById('tabelaJogadores').innerHTML = element;
 }
 
-// 1 - Fazer a lógica de quando houver um empate, obrigatóriamente deveria já ajustar como empate para os demais jogadores
+refreshBoard(players);
 
-// 2 - Validar se todos os pontos estão fazendo sentido, tanto o número de empates, quanto derrotas e vitórias com os demais jogadores (impossível haver mais vitórias que derrotas, por exemplo)
-
-function isDrawsValid() {
-  var totalOfDraws = 0;
-  var maxDraws = 0;
-
-  for (let i = 0; i < jogadores.length; i++) {
-    totalOfDraws += jogadores[i].empates;
-    maxDraws =
-      maxDraws > jogadores[i].empates ? maxDraws : jogadores[i].empates;
-  }
-
-  if (totalOfDraws % 2 == 1 || maxDraws > totalOfDraws / 2) {
-    return false;
-  }
-
-  return true;
+function addFruit(i) {
+  var player = players[i];
+  player.fruit++;
+  player.points = calculatePoints(player);
+  refreshBoard(players);
 }
 
-function isVictoryAndDefeatValid() {
-  var totalOfVictorys = 0;
-  var totalOfDeafeats = 0;
-
-  for (let i = 0; i < jogadores.length; i++) {
-    totalOfVictorys += jogadores[i].vitorias;
-    totalOfDeafeats += jogadores[i].derrotas;
-  }
-
-  if (totalOfVictorys != totalOfDeafeats) {
-    return false;
-  }
-
-  return true;
+function addActivity(i) {
+  var player = players[i];
+  player.activity++;
+  player.points = calculatePoints(player);
+  refreshBoard(players);
 }
-
-// 3 - Adicionar a imagem de cada jogador
-
-// 4 - Criar um botão para zerar todos os pontos
 
 function cleanScoreboard() {
-  for (let i = 0; i < jogadores.length; i++) {
-    jogadores[i].vitorias = 0;
-    jogadores[i].empates = 0;
-    jogadores[i].derrotas = 0;
-    jogadores[i].pontos = calculaPontos(jogadores[i]);
+  for (let i = 0; i < players.length; i++) {
+    players[i].fruit = 0;
+    players[i].activity = 0;
+    players[i].points = calculatePoints(players[i]);
   }
 
-  exibeJogadoresNaTela(jogadores);
+  refreshBoard(players);
 }
-
-// 5 - Criar um botão e inputs (campos de texto) para adicionar novos jogadores, com seus respectivos dados
 
 function addPlayer() {
   var newPlayer = {
-    nome: document.getElementById('playerName').value,
-    vitorias: 0,
-    empates: 0,
-    derrotas: 0,
-    pontos: 0,
+    name: document.getElementById('playerName').value,
+    fruit: 0,
+    activity: 0,
+    points: 0,
     image: document.getElementById('playerImage').value,
   };
-  jogadores.push(newPlayer);
-  exibeJogadoresNaTela(jogadores);
+  players.push(newPlayer);
+  refreshBoard(players);
 }
 
-// 6 - Utilizar seu jogo preferido para se basear na pontuação da sua tabela de classificação
+/**
+ * Function to sort alphabetically an array of objects by some specific key.
+ *
+ * @param {String} property Key of the object to sort.
+ */
+function dynamicSort(property) {
+  var sortOrder = 1;
+
+  if (property[0] === '-') {
+    sortOrder = -1;
+    property = property.substr(1);
+  }
+
+  return function (a, b) {
+    if (sortOrder == -1) {
+      if (typeof b[property] === 'string') {
+        return b[property].localeCompare(a[property]);
+      } else {
+        return b[property] - a[property];
+      }
+    } else {
+      if (typeof b[property] === 'string') {
+        return a[property].localeCompare(b[property]);
+      } else {
+        return a[property] - b[property];
+      }
+    }
+  };
+}
+
+var searchColumn = '';
+
+function sortPlayers(params) {
+  if (searchColumn == params) {
+    var column = document.getElementById(params + 'Column');
+    var symbol = column.innerText.substr(column.innerText.length - 1, 1);
+    if (symbol == '↑') {
+      column.innerText =
+        column.innerText.substr(0, column.innerText.length - 1) + '↓';
+      params = '-' + params;
+    } else {
+      column.innerText =
+        column.innerText.substr(0, column.innerText.length - 1) + '↑';
+    }
+  } else {
+    if (searchColumn != '') {
+      var oldColumn = document.getElementById(searchColumn + 'Column');
+      oldColumn.innerText = oldColumn.innerText.substr(
+        0,
+        oldColumn.innerText.length - 1
+      );
+    }
+    var newColumn = document.getElementById(params + 'Column');
+    newColumn.innerText = newColumn.innerText + '↑';
+    searchColumn = params;
+  }
+
+  players.sort(dynamicSort(params));
+  refreshBoard(players);
+}
+
+function cleanSearchArrows() {
+  document.getElementById('nameSearchUp').hidden = true;
+  document.getElementById('nameSearchDown').hidden = true;
+}
