@@ -1,6 +1,8 @@
 var cards = [
   {
     name: 'Oliver',
+    image:
+      'https://d3idks24kkd2lv.cloudfront.net/wp-content/uploads/2019/03/German-Pug-Thumb.jpg',
     attributes: {
       tamanho: 5,
       fofura: 6,
@@ -10,6 +12,8 @@ var cards = [
   },
   {
     name: 'Fenix',
+    image:
+      'https://i2.wp.com/d1wfvaoxobvuy.cloudfront.net/wp-content/uploads/2017/01/26113241/Galeria-2-Chow-Chow.jpg',
     attributes: {
       tamanho: 7,
       fofura: 10,
@@ -19,6 +23,8 @@ var cards = [
   },
   {
     name: 'Thor',
+    image:
+      'https://www.petlove.com.br/images/breeds/193057/profile/original/spitz_alemao-p.jpg',
     attributes: {
       tamanho: 3,
       fofura: 10,
@@ -28,6 +34,7 @@ var cards = [
   },
   {
     name: 'Billy',
+    image: 'https://www.houssin.com/content/1-pups/21-shih-tzu/443-1.jpg',
     attributes: {
       tamanho: 4,
       fofura: 2,
@@ -37,6 +44,8 @@ var cards = [
   },
   {
     name: 'Molli',
+    image:
+      'https://www.infoescola.com/wp-content/uploads/2010/10/Shih-Tzu_117095806.jpg',
     attributes: {
       tamanho: 4,
       fofura: 4,
@@ -76,6 +85,8 @@ function showOptions() {
   var opcoes = document.getElementById('opcoes');
   var opcoesTexto = '';
 
+  opcoesTexto +=
+    '<img style="width: 100px" src="' + playerCard.image + '"</><br>';
   opcoesTexto += '<span>' + playerCard.name + '</span><br>';
   for (var atributo in playerCard.attributes) {
     opcoesTexto +=
@@ -130,6 +141,8 @@ function showPcCard() {
   var opcoes = document.getElementById('opcoes');
   var opcoesTexto = '';
 
+  opcoesTexto +=
+    '<br><img style="width: 100px" src="' + pcCard.image + '" </><br>';
   opcoesTexto += '<br><span>' + pcCard.name + '</span><br>';
   for (var atributo in pcCard.attributes) {
     opcoesTexto +=
