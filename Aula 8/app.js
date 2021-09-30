@@ -1,135 +1,163 @@
-var cartaPaulo = {
-  nome: 'Shiryu de dragão',
-  imagem:
-    'http://pm1.narvii.com/6399/96fdb9d4fe6a9e72b9bc60ad418e3c43795e53b4_00.jpg',
-  atributos: {
-    ataque: 5,
-    defesa: 9,
-    magia: 10,
+var cards = [
+  {
+    name: 'Oliver',
+    image:
+      'https://d3idks24kkd2lv.cloudfront.net/wp-content/uploads/2019/03/German-Pug-Thumb.jpg',
+    attributes: {
+      tamanho: 5,
+      fofura: 6,
+      inteligência: 4,
+      obediência: 7,
+    },
   },
-};
-
-var cartaRafa = {
-  nome: 'Bulbasauro',
-  imagem: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png',
-  atributos: {
-    ataque: 7,
-    defesa: 8,
-    magia: 6,
+  {
+    name: 'Fenix',
+    image:
+      'https://i2.wp.com/d1wfvaoxobvuy.cloudfront.net/wp-content/uploads/2017/01/26113241/Galeria-2-Chow-Chow.jpg',
+    attributes: {
+      tamanho: 7,
+      fofura: 10,
+      inteligência: 6,
+      obediência: 5,
+    },
   },
-};
-
-var cartaGui = {
-  nome: 'Darth Vader',
-  imagem:
-    'https://images-na.ssl-images-amazon.com/images/I/41i-0NH0q9L._SX328_BO1,204,203,200_.jpg',
-  atributos: {
-    ataque: 9,
-    defesa: 8,
-    magia: 2,
+  {
+    name: 'Thor',
+    image:
+      'https://www.petlove.com.br/images/breeds/193057/profile/original/spitz_alemao-p.jpg',
+    attributes: {
+      tamanho: 3,
+      fofura: 10,
+      inteligência: 8,
+      obediência: 9,
+    },
   },
-};
-
-var cartaMaquina;
-var cartaJogador;
-var cartas = [cartaPaulo, cartaRafa, cartaGui];
-// 0          1           2
+  {
+    name: 'Billy',
+    image: 'https://www.houssin.com/content/1-pups/21-shih-tzu/443-1.jpg',
+    attributes: {
+      tamanho: 4,
+      fofura: 2,
+      inteligência: 6,
+      obediência: 7,
+    },
+  },
+  {
+    name: 'Molli',
+    image:
+      'https://www.infoescola.com/wp-content/uploads/2010/10/Shih-Tzu_117095806.jpg',
+    attributes: {
+      tamanho: 4,
+      fofura: 4,
+      inteligência: 6,
+      obediência: 9,
+    },
+  },
+];
+var usedCards = [];
+var pcCard;
+var playerCard;
 
 function sortearCarta() {
-  var numeroCartaMaquina = parseInt(Math.random() * 3);
-  cartaMaquina = cartas[numeroCartaMaquina];
-
-  var numeroCartaJogador = parseInt(Math.random() * 3);
-  while (numeroCartaJogador == numeroCartaMaquina) {
-    numeroCartaJogador = parseInt(Math.random() * 3);
+  var randomPosition = 0;
+  if (cards.length < 2) {
+    cards = cards.concat(usedCards);
+    usedCards = [];
   }
-  cartaJogador = cartas[numeroCartaJogador];
-  console.log(cartaJogador);
+
+  // Pick Pc card
+  randomPosition = parseInt(Math.random() * cards.length);
+  pcCard = cards.splice(randomPosition, 1)[0];
+  // Pick player card
+  randomPosition = parseInt(Math.random() * cards.length);
+  playerCard = cards.splice(randomPosition, 1)[0];
+
+  usedCards.push(pcCard);
+  usedCards.push(playerCard);
 
   document.getElementById('btnSortear').disabled = true;
   document.getElementById('btnJogar').disabled = false;
-  exibirCartaJogador();
+
+  showPlayersCards();
 }
 
-function obtemAtributoSelecionado() {
-  var radioAtributo = document.getElementsByName('atributo');
-  for (var i = 0; i < radioAtributo.length; i++) {
-    if (radioAtributo[i].checked) {
-      return radioAtributo[i].value;
+function getSelectedAttributes() {
+  var radioattributes = document.getElementsByName('atributo');
+
+  for (var i = 0; i < radioattributes.length; i++) {
+    if (radioattributes[i].checked == true) {
+      return radioattributes[i].value;
     }
   }
 }
 
 function jogar() {
-  console.log('chamou');
-  var atributoSelecionado = obtemAtributoSelecionado();
-  var divResultado = document.getElementById('resultado');
+  var selectedAttributes = getSelectedAttributes();
+  var resultElement = document.getElementById('resultado');
+  var playerCardValue = playerCard.attributes[selectedAttributes];
+  var pcCardValue = pcCard.attributes[selectedAttributes];
+  var htmlResultado = '';
 
-  if (
-    cartaJogador.atributos[atributoSelecionado] >
-    cartaMaquina.atributos[atributoSelecionado]
-  ) {
+  if (playerCardValue > pcCardValue) {
     htmlResultado = "<p class='resultado-final'>Venceu</p>";
-  } else if (
-    cartaJogador.atributos[atributoSelecionado] <
-    cartaMaquina.atributos[atributoSelecionado]
-  ) {
+  } else if (pcCardValue > playerCardValue) {
     htmlResultado = "<p class='resultado-final'>Perdeu</p>";
   } else {
     htmlResultado = "<p class='resultado-final'>Empatou</p>";
   }
-  divResultado.innerHTML = htmlResultado;
+  resultElement.innerHTML = htmlResultado;
 
+  // document.getElementById('btnSortear').disabled = false;
   document.getElementById('btnJogar').disabled = true;
-  exibirCartaMaquina();
+
+  showPcCard();
 }
 
-function exibirCartaJogador() {
+function showPlayersCards() {
   var divCartaJogador = document.getElementById('carta-jogador');
-  divCartaJogador.style.backgroundImage = `url(${cartaJogador.imagem})`;
-  // divCartaJogador.style.backgroundImage = "url(" + cartaJogador.imagem + ")"
+  divCartaJogador.style.backgroundImage = `url(${playerCard.image})`;
   var moldura =
     '<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent.png" style=" width: inherit; height: inherit; position: absolute;">';
   var tagHTML = "<div id='opcoes' class='carta-status'>";
 
   var opcoesTexto = '';
-  for (var atributo in cartaJogador.atributos) {
+  var first = true;
+  for (var atributo in playerCard.attributes) {
     opcoesTexto +=
-      "<input type='radio' name='atributo' value='" +
-      atributo +
-      "'>" +
-      atributo +
-      ' ' +
-      cartaJogador.atributos[atributo] +
-      '<br>';
+      "<input type='radio' name='atributo' value='" + atributo + "'";
+    if (first) {
+      opcoesTexto += ' checked';
+      first = false;
+    }
+    opcoesTexto +=
+      '>' + atributo + ': ' + playerCard.attributes[atributo] + '<br>';
   }
-  var nome = `<p class="carta-subtitle">${cartaJogador.nome}</p>`;
+  var name = `<p class="carta-subtitle">${playerCard.name}</p>`;
 
-  divCartaJogador.innerHTML = moldura + nome + tagHTML + opcoesTexto + '</div>';
+  divCartaJogador.innerHTML = moldura + name + tagHTML + opcoesTexto + '</div>';
 }
 
-function exibirCartaMaquina() {
+function showPcCard() {
   var divCartaMaquina = document.getElementById('carta-maquina');
-  divCartaMaquina.style.backgroundImage = `url(${cartaMaquina.imagem})`;
-  // divCartaJogador.style.backgroundImage = "url(" + cartaJogador.imagem + ")"
+  divCartaMaquina.style.backgroundImage = `url(${pcCard.image})`;
   var moldura =
     '<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent.png" style=" width: inherit; height: inherit; position: absolute;">';
   var tagHTML = "<div id='opcoes' class='carta-status'>";
 
   var opcoesTexto = '';
-  for (var atributo in cartaMaquina.atributos) {
+  for (var atributo in pcCard.attributes) {
     opcoesTexto +=
       "<p type='text' name='atributo' value='" +
       atributo +
       "'>" +
       atributo +
-      ' ' +
-      cartaMaquina.atributos[atributo] +
+      ': ' +
+      pcCard.attributes[atributo] +
       '</p>';
   }
-  var nome = `<p class="carta-subtitle">${cartaMaquina.nome}</p>`;
+  var name = `<p class="carta-subtitle">${pcCard.name}</p>`;
 
-  divCartaMaquina.innerHTML = moldura + nome + tagHTML + opcoesTexto + '</div>';
+  divCartaMaquina.innerHTML = moldura + name + tagHTML + opcoesTexto + '</div>';
 }
 
 // 1 - Criar de fato um baralho, com várias outras cartas
