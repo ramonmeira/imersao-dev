@@ -55,7 +55,7 @@ var cards = [
   },
 ];
 var usedCards = [];
-var pcCard;
+var computerCard;
 var playerCard;
 
 function sortearCarta() {
@@ -67,18 +67,22 @@ function sortearCarta() {
 
   // Pick Pc card
   randomPosition = parseInt(Math.random() * cards.length);
-  pcCard = cards.splice(randomPosition, 1)[0];
+  computerCard = cards.splice(randomPosition, 1)[0];
   // Pick player card
   randomPosition = parseInt(Math.random() * cards.length);
   playerCard = cards.splice(randomPosition, 1)[0];
 
-  usedCards.push(pcCard);
+  usedCards.push(computerCard);
   usedCards.push(playerCard);
 
   document.getElementById('btnSortear').disabled = true;
   document.getElementById('btnJogar').disabled = false;
 
-  showPlayersCards();
+  // Clean computer card and result field
+  showCard({ name: '', image: '' }, 'carta-maquina');
+  document.getElementById('resultado').innerHTML = '';
+
+  showCard(playerCard, 'carta-jogador');
 }
 
 function getSelectedAttributes() {
@@ -95,69 +99,58 @@ function jogar() {
   var selectedAttributes = getSelectedAttributes();
   var resultElement = document.getElementById('resultado');
   var playerCardValue = playerCard.attributes[selectedAttributes];
-  var pcCardValue = pcCard.attributes[selectedAttributes];
+  var computerCardValue = computerCard.attributes[selectedAttributes];
   var htmlResultado = '';
 
-  if (playerCardValue > pcCardValue) {
+  if (playerCardValue > computerCardValue) {
     htmlResultado = "<p class='resultado-final'>Venceu</p>";
-  } else if (pcCardValue > playerCardValue) {
+  } else if (computerCardValue > playerCardValue) {
     htmlResultado = "<p class='resultado-final'>Perdeu</p>";
   } else {
     htmlResultado = "<p class='resultado-final'>Empatou</p>";
   }
   resultElement.innerHTML = htmlResultado;
 
-  // document.getElementById('btnSortear').disabled = false;
+  document.getElementById('btnSortear').disabled = false;
   document.getElementById('btnJogar').disabled = true;
 
-  showPcCard();
+  showCard(computerCard, 'carta-maquina');
 }
 
-function showPlayersCards() {
-  var divCartaJogador = document.getElementById('carta-jogador');
-  divCartaJogador.style.backgroundImage = `url(${playerCard.image})`;
+function showCard(card, position) {
+  var positionCard = document.getElementById(position);
+  positionCard.style.backgroundImage = `url(${card.image})`;
   var moldura =
     '<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent.png" style=" width: inherit; height: inherit; position: absolute;">';
   var tagHTML = "<div id='opcoes' class='carta-status'>";
-
   var opcoesTexto = '';
-  var first = true;
-  for (var atributo in playerCard.attributes) {
-    opcoesTexto +=
-      "<input type='radio' name='atributo' value='" + atributo + "'";
-    if (first) {
-      opcoesTexto += ' checked';
-      first = false;
+
+  if (position == 'carta-jogador') {
+    var first = true;
+    for (var atributo in card.attributes) {
+      opcoesTexto +=
+        "<input type='radio' name='atributo' value='" + atributo + "'";
+      if (first) {
+        opcoesTexto += ' checked';
+        first = false;
+      }
+      opcoesTexto += '>' + atributo + ': ' + card.attributes[atributo] + '<br>';
     }
-    opcoesTexto +=
-      '>' + atributo + ': ' + playerCard.attributes[atributo] + '<br>';
+  } else {
+    for (var atributo in card.attributes) {
+      opcoesTexto +=
+        "<p type='text' name='atributo' value='" +
+        atributo +
+        "'>" +
+        atributo +
+        ': ' +
+        card.attributes[atributo] +
+        '</p>';
+    }
   }
-  var name = `<p class="carta-subtitle">${playerCard.name}</p>`;
+  var name = `<p class="carta-subtitle">${card.name}</p>`;
 
-  divCartaJogador.innerHTML = moldura + name + tagHTML + opcoesTexto + '</div>';
-}
-
-function showPcCard() {
-  var divCartaMaquina = document.getElementById('carta-maquina');
-  divCartaMaquina.style.backgroundImage = `url(${pcCard.image})`;
-  var moldura =
-    '<img src="https://www.alura.com.br/assets/img/imersoes/dev-2021/card-super-trunfo-transparent.png" style=" width: inherit; height: inherit; position: absolute;">';
-  var tagHTML = "<div id='opcoes' class='carta-status'>";
-
-  var opcoesTexto = '';
-  for (var atributo in pcCard.attributes) {
-    opcoesTexto +=
-      "<p type='text' name='atributo' value='" +
-      atributo +
-      "'>" +
-      atributo +
-      ': ' +
-      pcCard.attributes[atributo] +
-      '</p>';
-  }
-  var name = `<p class="carta-subtitle">${pcCard.name}</p>`;
-
-  divCartaMaquina.innerHTML = moldura + name + tagHTML + opcoesTexto + '</div>';
+  positionCard.innerHTML = moldura + name + tagHTML + opcoesTexto + '</div>';
 }
 
 // 1 - Criar de fato um baralho, com várias outras cartas
