@@ -1,59 +1,6 @@
-var cards = [
-  {
-    name: 'Oliver',
-    image:
-      'https://d3idks24kkd2lv.cloudfront.net/wp-content/uploads/2019/03/German-Pug-Thumb.jpg',
-    attributes: {
-      tamanho: 5,
-      fofura: 6,
-      inteligência: 4,
-      obediência: 7,
-    },
-  },
-  {
-    name: 'Fenix',
-    image:
-      'https://i2.wp.com/d1wfvaoxobvuy.cloudfront.net/wp-content/uploads/2017/01/26113241/Galeria-2-Chow-Chow.jpg',
-    attributes: {
-      tamanho: 7,
-      fofura: 10,
-      inteligência: 6,
-      obediência: 5,
-    },
-  },
-  {
-    name: 'Thor',
-    image:
-      'https://www.petlove.com.br/images/breeds/193057/profile/original/spitz_alemao-p.jpg',
-    attributes: {
-      tamanho: 3,
-      fofura: 10,
-      inteligência: 8,
-      obediência: 9,
-    },
-  },
-  {
-    name: 'Billy',
-    image: 'https://www.houssin.com/content/1-pups/21-shih-tzu/443-1.jpg',
-    attributes: {
-      tamanho: 4,
-      fofura: 2,
-      inteligência: 6,
-      obediência: 7,
-    },
-  },
-  {
-    name: 'Molli',
-    image:
-      'https://www.infoescola.com/wp-content/uploads/2010/10/Shih-Tzu_117095806.jpg',
-    attributes: {
-      tamanho: 4,
-      fofura: 4,
-      inteligência: 6,
-      obediência: 9,
-    },
-  },
-];
+// var cards = deFeriasCaoOsAmigos;
+var cards = dnd;
+
 var usedCards = [];
 var computerCards = [];
 var playerCards = [];

@@ -43,10 +43,10 @@ h2 {
   display: flex;
   align-items: flex-end;
   position: relative;
-  background-size: 350px 300px;
+  background-size: 295px 220px;
   background-repeat: no-repeat;
-  background-position-x: 5px;
-  background-position-y: 10px;
+  background-position-x: 35px;
+  background-position-y: 60px;
   border-radius: 33px;
 }
 
@@ -74,7 +74,7 @@ h2 {
 }
 
 .carta-status input {
-  margin: 10px 10px;
+  margin: 5px 10px;
   text-align: left;
 }
 
@@ -119,7 +119,7 @@ form {
 }
 
 .carta-status p {
-  margin: 10px;
+  margin: 0px 10px;
 }
 
 .numberOfCards {
