@@ -55,25 +55,17 @@ var cards = [
   },
 ];
 var usedCards = [];
-var computerCard;
-var playerCard;
+var computerCards = [];
+var playerCards = [];
 
 function sortearCarta() {
-  var randomPosition = 0;
-  if (cards.length < 2) {
-    cards = cards.concat(usedCards);
-    usedCards = [];
+  if (computerCards.length == 0 || playerCards.length == 0) {
+    shuffleArray(cards);
+    playerCards = cards.slice(0, cards.length / 2);
+    computerCards = cards.slice(cards.length / 2, cards.length);
   }
 
-  // Pick Pc card
-  randomPosition = parseInt(Math.random() * cards.length);
-  computerCard = cards.splice(randomPosition, 1)[0];
-  // Pick player card
-  randomPosition = parseInt(Math.random() * cards.length);
-  playerCard = cards.splice(randomPosition, 1)[0];
-
-  usedCards.push(computerCard);
-  usedCards.push(playerCard);
+  refreshBoard();
 
   document.getElementById('btnSortear').disabled = true;
   document.getElementById('btnJogar').disabled = false;
@@ -82,7 +74,7 @@ function sortearCarta() {
   showCard({ name: '', image: '' }, 'carta-maquina');
   document.getElementById('resultado').innerHTML = '';
 
-  showCard(playerCard, 'carta-jogador');
+  showCard(playerCards[0], 'carta-jogador');
 }
 
 function getSelectedAttributes() {
@@ -96,28 +88,49 @@ function getSelectedAttributes() {
 }
 
 function jogar() {
+  showCard(computerCards[0], 'carta-maquina');
+
   var selectedAttributes = getSelectedAttributes();
   var resultElement = document.getElementById('resultado');
-  var playerCardValue = playerCard.attributes[selectedAttributes];
-  var computerCardValue = computerCard.attributes[selectedAttributes];
-  var htmlResultado = '';
 
+  var playerCardValue = playerCards[0].attributes[selectedAttributes];
+  var computerCardValue = computerCards[0].attributes[selectedAttributes];
+
+  var htmlResultado = '';
   if (playerCardValue > computerCardValue) {
-    htmlResultado = "<p class='resultado-final'>Venceu</p>";
+    playerCards.push(computerCards.shift());
+    playerCards.push(playerCards.shift());
+
+    htmlResultado =
+      "<p class='resultado-final'>Venceu" +
+      (computerCards.length == 0 ? ' a partida' : ' a rodada') +
+      '</p>';
   } else if (computerCardValue > playerCardValue) {
-    htmlResultado = "<p class='resultado-final'>Perdeu</p>";
+    computerCards.push(playerCards.shift());
+    computerCards.push(computerCards.shift());
+
+    htmlResultado =
+      "<p class='resultado-final'>Perdeu" +
+      (playerCards.length == 0 ? ' a partida' : ' a rodada') +
+      '</p>';
   } else {
-    htmlResultado = "<p class='resultado-final'>Empatou</p>";
+    playerCards.push(playerCards.shift());
+    computerCards.push(computerCards.shift());
+
+    htmlResultado = "<p class='resultado-final'>Empatou a rodada </p>";
   }
   resultElement.innerHTML = htmlResultado;
 
+  refreshBoard();
+
   document.getElementById('btnSortear').disabled = false;
   document.getElementById('btnJogar').disabled = true;
-
-  showCard(computerCard, 'carta-maquina');
 }
 
 function showCard(card, position) {
+  if (card === undefined) {
+    card = { name: '', image: '' };
+  }
   var positionCard = document.getElementById(position);
   positionCard.style.backgroundImage = `url(${card.image})`;
   var moldura =
@@ -155,5 +168,22 @@ function showCard(card, position) {
 
 // 1 - Criar de fato um baralho, com várias outras cartas
 // 2 - Desenvolver um sistema em que a cada carta que um jogador ganhe, ele fique com a carta do oponente e vice versa
+
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+};
+
+function refreshBoard() {
+  document.getElementById('playerNumberOfCards').innerHTML =
+    playerCards.length + ' cartas';
+  document.getElementById('computerNumberOfCards').innerHTML =
+    computerCards.length + ' cartas';
+}
+
 // 3 - Transformar as funções exibirCartaMaquina() e exibirCartaJogador() em apenas uma, chamada exibirCarta(), utilizando para isso a passagem de parâmetros
 // 4 - Utilizar seus personagens e jogos preferidos nesse projeto

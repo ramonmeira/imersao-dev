@@ -121,3 +121,8 @@ form {
 .carta-status p {
   margin: 10px;
 }
+
+.numberOfCards {
+  color: white;
+  font-size: 3em;
+}
