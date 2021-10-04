@@ -42,4 +42,46 @@ body {
 .projetos {
   display: flex;
   flex-direction: column;
+
+  background: linear-gradient(230.65deg, #499cfe 27.49%, #9cc8fc 83.19%);
+  box-shadow: 2px 2px 4px rgba(16, 16, 16, 0.42);
+  border-radius: 20px;
+  margin-top: 44px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+  color: #1c1c1c;
+}
+
+#projects-title {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 56px;
+  text-align: center;
+
+  margin-top: 105px;
+}
+
+.projetos ul {
+  list-style-type: none;
+
+  color: #1c1c1c;
+  margin: 80px 0;
+}
+
+.projetos ul li {
+  margin: 20px;
+}
+
+.projetos li a {
+  text-decoration: none;
+  color: #1c1c1c;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 36px;
+  line-height: 42px;
 }
