@@ -244,3 +244,7 @@ function cleanSearchArrows() {
   document.getElementById('nameSearchUp').hidden = true;
   document.getElementById('nameSearchDown').hidden = true;
 }
+
+function downloadJSON() {
+  navigator.clipboard.writeText(JSON.stringify(players));
+}
