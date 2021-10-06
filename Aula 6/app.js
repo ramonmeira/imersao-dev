@@ -150,10 +150,11 @@ function removePlayer(i) {
 }
 
 function addPlayer() {
-  if (
-    typeof JSON.parse(document.getElementById('playerName').value) === 'object'
-  ) {
-    players = JSON.parse(document.getElementById('playerName').value);
+  var name = document.getElementById('playerName').value;
+  if (IsValidJSONString(name) && name[0] == '[') {
+    var newPlayers = JSON.parse(document.getElementById('playerName').value);
+    console.log(newPlayers);
+    players = players.concat(newPlayers);
   } else {
     var newPlayer = {
       name: document.getElementById('playerName').value,
@@ -163,8 +164,19 @@ function addPlayer() {
       image: document.getElementById('playerImage').value,
     };
     players.push(newPlayer);
+    document.getElementById('playerName').value = '';
+    document.getElementById('playerImage').value = '';
   }
   refreshBoard(players);
+}
+
+function IsValidJSONString(str) {
+  try {
+    JSON.parse(str);
+  } catch (e) {
+    return false;
+  }
+  return true;
 }
 
 /**
