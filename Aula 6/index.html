@@ -13,15 +13,20 @@
     />
     <link rel="stylesheet" href="style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.js"></script>
+    <script src="https://use.fontawesome.com/65a130d621.js"></script>
   </head>
   <body>
     <h1>Tabela de classificação</h1>
+
+    <button class="btn btn-danger mb-1 me-1 float-end" onclick="cleanScore()">
+      Limpar placar
+    </button>
 
     <button
       class="btn btn-danger mb-1 me-1 float-end"
       onclick="cleanScoreboard()"
     >
-      Limpar placar
+      Zerar placar
     </button>
 
     <table

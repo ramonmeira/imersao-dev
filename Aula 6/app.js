@@ -1,57 +1,21 @@
-var drawAdjusted = true;
-var victoryAndDefeateAdjusted = true;
+var players = [];
 
-var players = [
-  {
-    name: 'Bianca',
-    fruit: 15,
-    activity: 15,
-    points: 30,
-    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_2118-64.png',
-  },
-  {
-    name: 'Franciele',
-    fruit: 14,
-    activity: 13,
-    points: 27,
-    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_900-64.png',
-  },
-  {
-    name: 'H&#233;lio',
-    fruit: 12,
-    activity: 15,
-    points: 27,
-    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_2471-64.png',
-  },
-  {
-    name: 'Isabel',
-    fruit: 14,
-    activity: 15,
-    points: 29,
-    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_1244-64.png',
-  },
-  {
-    name: 'Ramon',
-    fruit: 15,
-    activity: 13,
-    points: 28,
-    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_1072-64.png',
-  },
-  {
-    name: 'Suiane',
-    fruit: 13,
-    activity: 13,
-    points: 26,
-    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_143-64.png',
-  },
-  {
-    name: 'Victor Bruno',
-    fruit: 10,
-    activity: 11,
-    points: 21,
-    image: 'img/players/8d34dccac3830875b9b7beeaddd39c34_w_1146-64.png',
-  },
-];
+if (typeof Storage !== 'undefined') {
+  //browser support localStorage
+  // localStorage.clear();
+  localPlayers = localStorage.getItem('players');
+
+  if (localPlayers != null) {
+    players = JSON.parse(localPlayers);
+  }
+} else {
+  //browser does not support localStorage
+  console.log('//browser does not support localStorage');
+}
+
+function updateLocalPlayers() {
+  localStorage.setItem('players', JSON.stringify(players));
+}
 
 function calculatePoints(player) {
   var points = player.fruit + player.activity;
@@ -59,6 +23,7 @@ function calculatePoints(player) {
 }
 
 function refreshBoard(players) {
+  updateLocalPlayers();
   var element = '';
   for (var i = 0; i < players.length; i++) {
     element += '<tr>';
@@ -115,14 +80,34 @@ function refreshBoard(players) {
     element += '</td>';
     element += '<td scope="row">' + players[i].points + '</td>';
     element +=
-      "<td scope='row'><button class='btn btn-primary' onClick='addFruit(" +
+      "<td scope='row'><button class='btn btn-primary action-button' onClick='addFruit(" +
       i +
       ")'><img src='img/legend/apple.png'></button></td>";
     element +=
-      "<td scope='row'><button class='btn btn-primary' onClick='addActivity(" +
+      "<td scope='row'><button class='btn btn-primary action-button' onClick='addActivity(" +
       i +
       ")'><img src='img/legend/medal-1.png'></button></td>";
+    element +=
+      "<td scope='row'><button class='btn btn-danger action-button' onClick='removePlayer(" +
+      i +
+      ")'><i class='fas fa-trash'></i></button></td>";
     element += '</tr>';
+
+    // element +=
+    //   "<td scope='row'><button class='btn btn-primary action-button' onClick='addFruit(" +
+    //   i +
+    //   ")'><img src='img/legend/apple.png'></button>"; //</td>";
+    // element +=
+    //   //"<td scope='row'>
+    //   "<button class='btn btn-primary action-button' onClick='addActivity(" +
+    //   i +
+    //   ")'><img src='img/legend/medal-1.png'></button>"; //</td>";
+    // element +=
+    //   //"<td scope='row'>
+    //   "<button class='btn btn-danger action-button' onClick='removePlayer(" +
+    //   i +
+    //   ")'><i class='fas fa-trash'></i></button></td>";
+    // element += '</tr>';
   }
 
   document.getElementById('tabelaJogadores').innerHTML = element;
@@ -154,15 +139,31 @@ function cleanScoreboard() {
   refreshBoard(players);
 }
 
+function cleanScore() {
+  players = [];
+  refreshBoard(players);
+}
+
+function removePlayer(i) {
+  players.splice(i, 1);
+  refreshBoard(players);
+}
+
 function addPlayer() {
-  var newPlayer = {
-    name: document.getElementById('playerName').value,
-    fruit: 0,
-    activity: 0,
-    points: 0,
-    image: document.getElementById('playerImage').value,
-  };
-  players.push(newPlayer);
+  if (
+    typeof JSON.parse(document.getElementById('playerName').value) === 'object'
+  ) {
+    players = JSON.parse(document.getElementById('playerName').value);
+  } else {
+    var newPlayer = {
+      name: document.getElementById('playerName').value,
+      fruit: 0,
+      activity: 0,
+      points: 0,
+      image: document.getElementById('playerImage').value,
+    };
+    players.push(newPlayer);
+  }
   refreshBoard(players);
 }
 

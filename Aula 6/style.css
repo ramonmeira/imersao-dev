@@ -12,6 +12,10 @@ body {
   background-repeat: no-repeat;
 }
 
+.fas {
+  font-family: 'FontAwesome' !important;
+}
+
 .container {
   text-align: center;
   padding: 20px;
@@ -49,4 +53,8 @@ h1 {
 
 table img {
   max-width: 25px;
+}
+
+.action-button i {
+  font-style: normal;
 }
